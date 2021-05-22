@@ -15,11 +15,11 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "eslint-plugin-import-helpers", "prettier"],
+  "plugins": ["@typescript-eslint", "prettier", "eslint-plugin-import-helpers"],
   "rules": {
     "camelcase": "off",
-    "import/no-unresolved": "error",
     "prettier/prettier": "error",
+    "import/no-unresolved": "error",
     "@typescript-eslint/naming-convention": [
       "error",
       {
@@ -49,7 +49,7 @@
       "warn",
       {
         "newlinesBetween": "always",
-        "groups": ["module", "/^@shared/", ["parent", "sibling", "index"]],
+        "groups": ["module", "/^@/", ["parent", "sibling", "index"]],
         "alphabetize": { "order": "asc", "ignoreCase": true }
       }
     ],
