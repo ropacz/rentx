@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
-import { deleteFile } from "../../../../utils/file";
+
+import { deleteFile } from "@utils/deleteFile";
 
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 

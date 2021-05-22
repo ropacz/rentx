@@ -1,12 +1,10 @@
-import { Category } from "../entities/Category";
+import { Category } from "../infra/typeorm/entities/Category";
 
-// DTO => Data Transfer Object
 interface ICreateCategoryDTO {
   name: string;
   description: string;
 }
 
-// Interface to implements a new category repository
 interface ICategoriesRepository {
   create({ name, description }: ICreateCategoryDTO): Promise<void>;
   list(): Promise<Category[]>;
