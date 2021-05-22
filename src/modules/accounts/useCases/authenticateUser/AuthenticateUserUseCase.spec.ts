@@ -23,7 +23,7 @@ describe("Authenticate User", () => {
     const user: ICreateUserDTO = {
       driver_license: "000123",
       email: "user@test.com",
-      password: "1234",
+      password: "any-password",
       name: "User test",
     };
 
@@ -40,7 +40,7 @@ describe("Authenticate User", () => {
   test("should not be able to authenticate an nonexistent user", async () => {
     const response = authenticateUserUseCase.execute({
       email: "outher@test.com",
-      password: "1234",
+      password: "any-password",
     });
 
     await expect(response).rejects.toBeInstanceOf(AppError);
@@ -53,7 +53,7 @@ describe("Authenticate User", () => {
     const user: ICreateUserDTO = {
       driver_license: "000123",
       email: "user@test.com",
-      password: "1234",
+      password: "any-password",
       name: "User test",
     };
 
