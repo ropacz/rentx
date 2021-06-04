@@ -4,13 +4,13 @@ import { AppError } from "@shared/errors/AppError";
 import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 
 let createCategoryUseCase: CreateCategoryUseCase;
-let categoriesRepositoryInMeory: CategoriesRepositoryInMemory;
+let categoriesRepositoryInMemory: CategoriesRepositoryInMemory;
 
 describe("Create Category", () => {
   beforeEach(() => {
-    categoriesRepositoryInMeory = new CategoriesRepositoryInMemory();
+    categoriesRepositoryInMemory = new CategoriesRepositoryInMemory();
     createCategoryUseCase = new CreateCategoryUseCase(
-      categoriesRepositoryInMeory
+      categoriesRepositoryInMemory
     );
   });
 
@@ -21,7 +21,7 @@ describe("Create Category", () => {
     };
     await createCategoryUseCase.execute(category);
 
-    const categoryCreated = await categoriesRepositoryInMeory.findByName(
+    const categoryCreated = await categoriesRepositoryInMemory.findByName(
       category.name
     );
 
