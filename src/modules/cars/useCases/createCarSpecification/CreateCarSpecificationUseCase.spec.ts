@@ -55,5 +55,8 @@ describe("Create Car Specification", () => {
     });
 
     await expect(response).rejects.toBeInstanceOf(AppError);
+    await expect(response).rejects.toMatchObject({
+      message: "Car does not exists!",
+    });
   });
 });
