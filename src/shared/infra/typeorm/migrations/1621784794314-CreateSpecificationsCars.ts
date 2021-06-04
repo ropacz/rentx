@@ -12,9 +12,19 @@ export class CreateSpecificationsCars1621784794314
       new Table({
         name: "specifications_cars",
         columns: [
-          { name: "car_id", type: "uuid" },
-          { name: "specification_id", type: "uuid" },
-          { name: "created_at", type: "timestamp", default: "now()" },
+          {
+            name: "car_id",
+            type: "uuid",
+          },
+          {
+            name: "specification_id",
+            type: "uuid",
+          },
+          {
+            name: "created_at",
+            type: "timestamp",
+            default: "now()",
+          },
         ],
       })
     );
@@ -46,12 +56,12 @@ export class CreateSpecificationsCars1621784794314
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropForeignKey(
       "specifications_cars",
-      "FKSpecificationCar"
+      "FKCarSpecification"
     );
 
     await queryRunner.dropForeignKey(
       "specifications_cars",
-      "FKCarSpecification"
+      "FKSpecificationCar"
     );
 
     await queryRunner.dropTable("specifications_cars");
