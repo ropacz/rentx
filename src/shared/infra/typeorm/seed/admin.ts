@@ -10,14 +10,16 @@ async function create() {
   const password = await hash("admin", 8);
 
   await connection.query(
-    `INSERT INTO USERS(id, name, email, password, "isAdmin", created_at, driver_license ) 
-      values('${id}', 'admin', 'admin@rentx.com.br', '${password}', true, 'now()', 'XXXXXX')
+    `INSERT INTO users(id, name, email, password, "isAdmin", created_at, driver_license, avatar ) 
+      values('${id}', 'admin', 'admin@rentx.com.br', '${password}', true, 'now()', 'XXXXXX', 'default')
     `
   );
 
-  await connection.close;
+  await connection.close();
 }
 
 create()
   .then(() => console.log("User admin created!"))
-  .catch((e) => console.log(e));
+  .catch((err) => {
+    console.log(err);
+  });
