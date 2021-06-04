@@ -6,7 +6,7 @@ import { v4 as uuid } from "uuid";
 import { app } from "@shared/infra/http/app";
 
 let connection: Connection;
-describe("Create Category Controller", async () => {
+describe("Create Category Controller", () => {
   beforeAll(async () => {
     connection = await createConnection();
     await connection.runMigrations();
@@ -15,26 +15,38 @@ describe("Create Category Controller", async () => {
 
     await connection.query(
       `INSERT INTO USERS(id, name, email, password, "isAdmin", created_at, driver_license ) 
-				values('${uuid}', 'admin', 'admin@rentx.com.br', '${password}', true, 'now()', 'XXXXXX')
+				values('${uuid()}', 'admin', 'admin@rentx.com.br', '${password}', true, 'now()', 'XXXXXX')
 			`
     );
   });
 
   afterAll(async () => {
+    await connection.dropDatabase();
     await connection.close();
   });
 
-  test("should be able to create a new category", async () => {
+  test("should be able list all categories", async () => {
     const responseToken = await request(app).post("/sessions").send({
       email: "admin@rentx.com.br",
       password: "admin",
     });
 
-    const response = await request(app).post("/categories").send({
-      name: "Category Test",
-      description: "Same description",
-    });
+    const { token } = responseToken.body;
 
-    expect(response.status).toBe(201);
+    await request(app)
+      .post("/categories")
+      .send({
+        name: "Category Test",
+        description: "Same description",
+      })
+      .set({
+        Authorization: `Bearer ${token}`,
+      });
+
+    const response = await request(app).get("/categories");
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveLength(1);
+    expect(response.body[0]).toHaveProperty("id");
   });
 });
